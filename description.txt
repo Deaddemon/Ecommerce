@@ -1,0 +1,53 @@
+problems:
+search bar
+
+
+border radius on images 
+
+
+
+
+
+
+
+React Libraries used:
+
+react-multi-carousel
+react-router-dom
+
+//material-ui
+react-material-ui-carousel
+
+
+
+
+axios:frontend used axios to make calls to our backend
+
+
+
+initials:
+nodejs
+vs code
+postman
+git bash or hyper
+(add nodejs path to environment variables)
+----
+server-client folder alg alg
+set up server and mongodb in index.js,
+src/database/db.js includes the mongodb database connection
+.env file contain the information that cannot be revealed to public
+
+routes banao
+model (this folder includes schemas)
+use bcrypt library to hash password (with mongoose virtuals)
+controllers: to define get post requests
+
+   .exec((error, user) =>{
+            if(user) return response.status(400).json({
+                message: 'user already registered'
+            });
+
+        })
+
+
+

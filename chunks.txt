@@ -1,0 +1,37 @@
+
+postman: ------------------------
+used to hit the api or test the backend if our frontend is not yet ready
+ 
+get api: ----------------------
+GET is used to request data from a specified resource.
+GET requests can be cached
+GET requests remain in the browser history
+GET requests can be bookmarked
+GET requests should never be used when dealing with sensitive data
+GET requests have length restrictions
+GET requests are only used to request data (not modify)
+ex:
+app.get('/',(req,res,next) =>{
+  res.status(200).json({
+    message:"hello"
+  });
+});
+
+post api:--------------------------
+POST is used to send data to a server to create/update a resource.
+The data sent to the server with POST is stored in the request body of the HTTP request:
+POST requests are never cached
+POST requests do not remain in the browser history
+POST requests cannot be bookmarked
+POST requests have no restrictions on data length
+
+mongoose virtuals---------------
+Virtuals are document properties that do not persist or
+ get stored in the MongoDB database, they only exist logically and 
+ are not written to the document’s collection.
+ ex: 
+ userSchema.virtual('name.full')
+    .get(function () {
+        return this.name.first + ' ' + this.name.last;
+    })
+will help us to acces first and last name all together as full name
