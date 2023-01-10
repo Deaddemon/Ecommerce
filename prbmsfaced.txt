@@ -1,0 +1,11 @@
+1.mongodb connection
+downgraded the node version in connection string from mongodb website
+
+2.post api for signup giving error
+made the phone number in schema a compulsion but didnt need that
+so removed the required = true from mobile in schema
+
+3.again giving somehting went wrong text
+console log the error and if error is
+MongoError: E11000 duplicate key error collection: db_name.users index: userName_1 dup key: { userName: null }
+dropped the db

@@ -1,7 +1,7 @@
 
 
 import User from "../model/userSchema.js";
-
+import jwt from "jsonwebtoken";
 
 export const userSignup=  (request, response)=>{
 
@@ -17,20 +17,27 @@ export const userSignup=  (request, response)=>{
 
 
             const {
-                password,
-                username,
-                email
+                firstName,
+                lastName,
+                email,
+                password
             } = request.body;
             const newUser = new User({
+                firstName,
+                lastName,
+                email,
                 password,
-                username,
-                email
-                //username: Math.random().toString();
+                username: Math.random().toString()
             });
 
                     //await newUser.save();
 
         newUser.save((error, data) =>{
+            if(data){
+                return response.status(201).json({
+                    message: 'User is successfully registered'
+                });
+            }
             if(error){
                 //console.log(error);
                 return response.status(400).json({
@@ -38,11 +45,7 @@ export const userSignup=  (request, response)=>{
                 });
             }
 
-            if(data){
-                return response.status(201).json({
-                    user: data
-                });
-            }
+ 
         });
 
         });
@@ -57,29 +60,61 @@ export const userSignup=  (request, response)=>{
 }
 
 
-export const userLogin =  async (request, response)=>{
+export const userLogin =  (request, response)=>{
 
-    try{
+    
 
-        let user = await User.findOne( {
-            username: request.body.username,
-            password : request.body.password
+       User.findOne( {
+           email : request.body.email
         })
-        if(user){
-            return response.status(200).json(`${request.body.username} login successfull`);
-        }
-        else{
-            return response.status(401).json('invalid login');
-        }
+        .exec((error , user) =>{
+            if(error) return response.status(400).json({error});
+
+            if(user){
+                if(user.authenticate(request.body.hash_password)){
+
+                    const token = jwt.sign(
+                        {_id: user._id} ,
+                        process.env.JWT_SECRET ,
+                        {
+                            expiresIn: '5h'
+                        }
+                        );
+                    const {username , email , role} = user;
+                    
+                    response.status(200).json({
+                        token,
+                        user: {
+                            username, email , role
+                        }
+                    });
+
+                }
+                else{
+                    return response.status(400).json({
+                        message: 'Invalid Password'
+                    })
+                }
+                //return response.status(200).json(`${request.body.username} login successfull`);
+            }else{
+                return response.status(400).json(`soemthing went wrong`);
+
+            }
+        })
+        
+        // else{
+        //     return response.status(401).json('invalid login');
+        // }
 
 
          
 
-    }catch(error){
-        console.log('error',error.message);
-    }
+    // }catch(error){
+    //     console.log('error',error.message);
+    // }
     
 
 }
+
 
 
