@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true 
     },
-    password:{
+    hash_password:{
         type: String,
         required: true, 
         // trim: true,
@@ -56,16 +56,18 @@ const userSchema = new mongoose.Schema({
 },
 );
 
-userSchema.virtual('hash_password').set(function(hash_password){
+//mongoose speciality
+userSchema.virtual('password')
+.set(function(password){
 
-    this.password = bcrypt.hashSync(hash_password, 10);
+    this.hash_password = bcrypt.hashSync(password, 10);
 });
 
 
 //will return true or false
 userSchema.methods = {
-    authenticate: function(hash_password){
-        return bcrypt.compareSync(hash_password, this.password);
+    authenticate: function(password ){
+        return bcrypt.compareSync(password, this.hash_password);
     }
 }
 const User = mongoose.model('User', userSchema);

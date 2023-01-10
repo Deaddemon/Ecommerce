@@ -9,3 +9,10 @@ so removed the required = true from mobile in schema
 console log the error and if error is
 MongoError: E11000 duplicate key error collection: db_name.users index: userName_1 dup key: { userName: null }
 dropped the db
+
+4.login api
+1)Error: data and hash arguments required
+.the password was not stored in hash form 
+the set function when hasshin the passwordis moved to next line --solved
+2)_id not defined
+forgot to take it from user in user controller

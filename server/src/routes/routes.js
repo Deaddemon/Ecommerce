@@ -9,6 +9,9 @@ const router = express.Router();
 router.post('/signup',  userSignup);
 router.post('/login' , userLogin) ;
 
+//personal protected pages access
+//router.post('/profile' , profile);
+
 // //the call is not product specific call thats why it is a get call
 // router.get('/products' , getProducts);
 // //colon indicates id is a varible

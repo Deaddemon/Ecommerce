@@ -68,10 +68,12 @@ export const userLogin =  (request, response)=>{
            email : request.body.email
         })
         .exec((error , user) =>{
-            if(error) return response.status(400).json({error});
+            if(error){
+                 return response.status(400).json({error});
+            }
 
             if(user){
-                if(user.authenticate(request.body.hash_password)){
+                if(user.authenticate(request.body.password)){
 
                     const token = jwt.sign(
                         {_id: user._id} ,
@@ -80,12 +82,15 @@ export const userLogin =  (request, response)=>{
                             expiresIn: '5h'
                         }
                         );
-                    const {username , email , role} = user;
+                    const {_id , firstName , email , role} = user;
                     
                     response.status(200).json({
                         token,
                         user: {
-                            username, email , role
+                            _id , 
+                            firstName, 
+                            email , 
+                            role
                         }
                     });
 
@@ -97,7 +102,9 @@ export const userLogin =  (request, response)=>{
                 }
                 //return response.status(200).json(`${request.body.username} login successfull`);
             }else{
-                return response.status(400).json(`soemthing went wrong`);
+                return response.status(400).json({
+                    message : 'soemthing went wrong'
+                })
 
             }
         })
@@ -115,6 +122,8 @@ export const userLogin =  (request, response)=>{
     
 
 }
+
+
 
 
 
