@@ -16,3 +16,9 @@ dropped the db
 the set function when hasshin the passwordis moved to next line --solved
 2)_id not defined
 forgot to take it from user in user controller
+
+5.signup for admin
+routes not added properply in index.js
+import adminRoutes from './src/routes/admin/routes.js';
+app.use('/' , adminRoutes);
+this is how u add

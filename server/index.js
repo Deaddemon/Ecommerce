@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import Connection from './src/database/db.js';
 //import DefaultData from './default.js';
 import Routes from './src/routes/routes.js';
+import adminRoutes from './src/routes/admin/routes.js';
 
 
 dotenv.config();
@@ -26,6 +27,7 @@ dotenv.config();
 //   });
 
 app.use('/', Routes);
+app.use('/', adminRoutes);
  
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;

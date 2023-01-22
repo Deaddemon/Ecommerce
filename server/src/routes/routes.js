@@ -9,7 +9,9 @@ const router = express.Router();
 router.post('/signup',  userSignup);
 router.post('/login' , userLogin) ;
 
-//personal protected pages access
+
+
+//protected pages/routes access
 //router.post('/profile' , profile);
 
 // //the call is not product specific call thats why it is a get call

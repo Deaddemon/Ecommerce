@@ -1,6 +1,6 @@
 
-
-import User from "../model/userSchema.js";
+ 
+import User from "../../model/userSchema.js";
 import jwt from "jsonwebtoken";
 
 export const userSignup=  (request, response)=>{
@@ -12,7 +12,7 @@ export const userSignup=  (request, response)=>{
         })
         .exec((error, user) =>{
             if(user) return response.status(400).json({
-                message: 'user already registered'
+                message: 'admin already registered'
             });
 
 
@@ -28,7 +28,7 @@ export const userSignup=  (request, response)=>{
                 email,
                 password,
                 username: Math.random().toString(),
-                role: 'user'
+                role : 'admin'
             });
 
                     //await newUser.save();
@@ -36,7 +36,7 @@ export const userSignup=  (request, response)=>{
         newUser.save((error, data) =>{
             if(data){
                 return response.status(201).json({
-                    message: 'User is successfully registered'
+                    message: 'admin is successfully registered'
                 });
             }
             if(error){
@@ -74,7 +74,7 @@ export const userLogin =  (request, response)=>{
             }
 
             if(user){
-                if(user.authenticate(request.body.password)){
+                if(user.authenticate(request.body.password) && user.role === 'admin'){
 
                     const token = jwt.sign(
                         {_id: user._id} ,
