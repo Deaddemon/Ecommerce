@@ -1,90 +1,4 @@
-
-
-import User from "../model/userSchema.js";
-
-
-export const userSignup=  (request, response)=>{
-
-   
-
-        User.findOne( {
-           email: request.body.email
-        })
-        .exec((error, user) =>{
-            if(user) return response.status(400).json({
-                message: 'user already registered'
-            });
-
-
-            const {
-                password,
-                username,
-                email
-            } = request.body;
-            const newUser = new User({
-                password,
-                username,
-                email
-                //username: Math.random().toString();
-            });
-
-                    //await newUser.save();
-
-        newUser.save((error, data) =>{
-            if(error){
-                //console.log(error);
-                return response.status(400).json({
-                    message: 'something went wrong'
-                });
-            }
-
-            if(data){
-                return response.status(201).json({
-                    message: 'User is successfully registered'
-                });
-            }
-        });
-
-        });
  
-
-
-        //response.status(200).json('User is successfully registered');
-
-
-   
-
-}
-
-
-export const userLogin =  async (request, response)=>{
-
-    try{
-
-        let user = await User.findOne( {
-            username: request.body.username,
-            password : request.body.password
-        })
-        if(user){
-            return response.status(200).json(`${request.body.username} login successfull`);
-        }
-        else{
-            return response.status(401).json('invalid login');
-        }
-
-
-         
-
-    }catch(error){
-        console.log('error',error.message);
-    }
-    
-
-}
-
-
-
-
 
 postman: ------------------------
 used to hit the api or test the backend if our frontend is not yet ready
@@ -122,3 +36,26 @@ Virtuals are document properties that do not persist or
         return this.name.first + ' ' + this.name.last;
     })
 will help us to acces first and last name all together as full name
+
+
+ways to exports:-----------------------------------------
+const replaceStr = (str, char, replacer) => {
+  const regex = new RegExp(char, "g")
+  const replaced = str.replace(regex, replacer)
+  return replaced
+}
+
+module.exports = { replaceStr }
+// or
+exports.replaceStr = replaceStr
+Exporting values with just the exports keyword is a 
+quick way to export values from a module. You can use 
+this keyword at the top or bottom, and all it does is 
+populate the module.exports object. But if you're using 
+exports in a file, stick to using it throughout that file.
+
+Using module.exports is a way of explicitly specifying 
+a module's exports. And this should ideally only exist once in a
+file. If it exists twice, the second declaration reassigns the
+module.exports property, and the module only exports what the 
+second declaration states.

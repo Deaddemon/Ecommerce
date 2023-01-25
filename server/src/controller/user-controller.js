@@ -1,11 +1,12 @@
-
-
-import User from "../model/userSchema.js";
 import jwt from "jsonwebtoken";
+ 
+import User from "../model/userSchema.js";
+ 
 
 export const userSignup=  (request, response)=>{
 
-   
+ 
+
 
         User.findOne( {
            email: request.body.email

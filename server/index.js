@@ -6,8 +6,8 @@ import dotenv from 'dotenv';
 
 import Connection from './src/database/db.js';
 //import DefaultData from './default.js';
-import Routes from './src/routes/routes.js';
-import adminRoutes from './src/routes/admin/routes.js';
+import Routes from './src/routes/auth.js';
+import adminRoutes from './src/routes/admin/auth.js';
 
 
 dotenv.config();

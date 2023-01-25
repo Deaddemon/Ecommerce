@@ -1,13 +1,15 @@
 import express from 'express';
-
-
+ 
 import { userSignup , userLogin } from '../controller/user-controller.js';
+import { validateSignUpRequest, isSignUpRequestValidated } from '../validator/auth.js';
+import { validateLogInRequest , isLogInRequestValidated } from '../validator/auth.js';
 import { getProducts , getProductByid} from '../controller/product-controller.js';
+
 const router = express.Router();
 
 
-router.post('/signup',  userSignup);
-router.post('/login' , userLogin) ;
+router.post('/signup' ,  validateSignUpRequest , isSignUpRequestValidated,  userSignup);
+router.post('/login' ,validateLogInRequest  , isLogInRequestValidated , userLogin) ;
 
 
 
