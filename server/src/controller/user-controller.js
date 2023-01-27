@@ -75,7 +75,7 @@ export const userLogin =  (request, response)=>{
             }
 
             if(user){
-                if(user.authenticate(request.body.password)){
+                if(user.authenticate(request.body.password) ){
 
                     const token = jwt.sign(
                         {_id: user._id} ,
@@ -92,7 +92,7 @@ export const userLogin =  (request, response)=>{
                             _id , 
                             firstName, 
                             email , 
-                            role
+                            role 
                         }
                     });
 

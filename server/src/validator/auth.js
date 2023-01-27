@@ -17,7 +17,7 @@ export const validateSignUpRequest =  [
     .isEmail()
     .withMessage('valid email is required'),
     check('password')
-    .isLength({min: 6})
+    .isLength({min: 3})
     .withMessage('password must be 6 characters long')
 ];
 
@@ -26,7 +26,7 @@ export const validateLogInRequest =  [
     .isEmail()
     .withMessage('valid email is required'),
     check('password')
-    .isLength({min: 6})
+    .isLength({min: 3})
     .withMessage('password must be 6 characters long')
 ];
 

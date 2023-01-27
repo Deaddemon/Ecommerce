@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/signup' ,  validateSignUpRequest , isSignUpRequestValidated,  userSignup);
 router.post('/login' ,validateLogInRequest  , isLogInRequestValidated , userLogin) ;
-
+  
 
 
 //protected pages/routes access

@@ -77,7 +77,7 @@ export const userLogin =  (request, response)=>{
                 if(user.authenticate(request.body.password) && user.role === 'admin'){
 
                     const token = jwt.sign(
-                        {_id: user._id} ,
+                        {_id: user._id , role: user.role } ,
                         process.env.JWT_SECRET ,
                         {
                             expiresIn: '5h'
@@ -125,13 +125,13 @@ export const userLogin =  (request, response)=>{
 }
 
 
-export const requireLogin = (req , res , next) => {
-    const token =  req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token , process.env.JWT_SECRET);
+// export const requireLogin = (req , res , next) => {
+//     const token =  req.headers.authorization.split(" ")[1];
+//     const user = jwt.verify(token , process.env.JWT_SECRET);
 
-    req.user = user;
-    next();
+//     req.user = user;
+//     next();
 
 
-}
+// }
 
