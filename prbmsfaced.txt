@@ -22,3 +22,6 @@ routes not added properply in index.js
 import adminRoutes from './src/routes/admin/routes.js';
 app.use('/' , adminRoutes);
 this is how u add
+
+6.ECONRESET
+in the userMiddleware i didn't called the next()

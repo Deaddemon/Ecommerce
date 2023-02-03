@@ -1,22 +1,39 @@
+import slugify from 'slugify';
+
+
 import Product from "../model/productsSchema.js";
 
-export const getProducts = async (request , response)=>{
-    try{
-       const products =  await Product.find({});
-       response.json(products);
+export const createProduct = (req, res) => {
+    // res.status(200).json({
+    //     file: req.files,
+    //     body: req.body
+    // });
 
-    }catch(error){
-        console.log('Error: ', error.message);
+    const { name, price, description,  category, createdBy } = req.body;
+
+    let pictures = [];
+    if(req.files.length > 0){
+        pictures = req.files.map( file => {
+            return { img : file.filename};
+        });
     }
-}
+    const product = new Product({
+        name: name,
+        slug: slugify(name),
+        price,
+        description ,
+        pictures ,
+        category ,
+        createdBy: req.user._id,
+    });
 
+    product.save(
+        (error , product) => {
+            if(error) return res.status(400).json({error});
+            if(product){
+                res.status(200).json({product});
+            }
+        }
+    );
 
-export const getProductByid = async( req , res)=>{
-    try{
-        const product = await Product.findOne({'id': req.params.id});
-        res.json(product);
-
-    }catch(error){
-        console.log("Error:", error.message);
-    }
 }

@@ -6,9 +6,10 @@ import dotenv from 'dotenv';
 
 import Connection from './src/database/db.js';
 //import DefaultData from './default.js';
-import userRoutes from './src/routes/auth.js';
+import userRoutes from './src/routes/user/auth.js';
 import adminRoutes from './src/routes/admin/auth.js';
 import categoryRoutes from './src/routes/category.js';
+import productRoutes from './src/routes/product.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ dotenv.config();
 app.use('/', userRoutes);
 app.use('/', adminRoutes);
 app.use('/' , categoryRoutes);
+app.use('/' , productRoutes);
  
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;

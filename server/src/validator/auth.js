@@ -30,7 +30,7 @@ export const validateLogInRequest =  [
     .withMessage('password must be 6 characters long')
 ];
 
-export const isSignUpRequestValidated = function (request, response, next) {
+export const isSignUpRequestValidated =   (request, response, next) =>{
 
     const errors = validationResult(request);
     if (errors.array().length > 0) {
@@ -40,12 +40,13 @@ export const isSignUpRequestValidated = function (request, response, next) {
 
 };
 
-export const isLogInRequestValidated = function(request , response , next){
+export const isLogInRequestValidated = (request , response , next)=>{
     
     const errors = validationResult(request);
     if(errors.array().length >0){
         return response.status(400).json({ errors: errors.array()[0]});
     }
+    next();
 }
  
 
